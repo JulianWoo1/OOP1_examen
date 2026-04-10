@@ -52,11 +52,11 @@ public class Concert
 
     public void setPriceInEuros(int priceInEuros)
     {
-        if (priceInEuros <= 0)
+        if (priceInEuros < MINIMUM_PRICE)
         {
             throw new IllegalArgumentException("price cannot be lower than one");
         }
-        this.priceInEuros = priceInEuros;
+        this.priceInEuros = priceInEuros + DEFAULT_TICKET_PRICE_IN_EUROS;
     }
 
     public List<Ticket> getSoldTickets()

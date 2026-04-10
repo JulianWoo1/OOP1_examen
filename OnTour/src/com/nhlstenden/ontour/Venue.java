@@ -35,7 +35,7 @@ public class Venue
 
     public void setMaxCapacity(int maxCapacity)
     {
-        if (maxCapacity <= 0)
+        if (maxCapacity <= MINIMUM_CAPACITY)
         {
             throw new IllegalArgumentException("Max capacity cannot be zero or lower");
         }
