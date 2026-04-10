@@ -23,7 +23,6 @@ class TicketServiceTest
     {
         venue = new Venue("a", 1, "a");
         artist = new Artist("a", "a");
-        List<Artist> artists = new ArrayList<>();
 
         concert = new Concert(artist, venue, LocalDate.now());
         List<Concert> concerts = new ArrayList<>();
@@ -31,6 +30,7 @@ class TicketServiceTest
 
         List<Venue> venues = new ArrayList<>();
         venues.add(venue);
+        List<Artist> artists = new ArrayList<>();
 
         artists.add(artist);
         concerts.add(concert);
