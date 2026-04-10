@@ -16,6 +16,7 @@ class TicketServiceTest
     private Artist artist;
     private Concert concert;
     private Venue venue;
+    private Ticket ticket;
 
     @BeforeEach
     void setup()
@@ -26,6 +27,7 @@ class TicketServiceTest
 
         concert = new Concert(artist, venue, LocalDate.now());
         List<Concert> concerts = new ArrayList<>();
+        ticket = new Ticket(concert);
 
         List<Venue> venues = new ArrayList<>();
         venues.add(venue);
@@ -38,29 +40,33 @@ class TicketServiceTest
     }
 
     @Test
-    void testGetTotalRevenue_()
+    void testGetTotalRevenue_OneTicketSold_ShouldReturn51()
     {
         venue = new Venue("a", 1, "a");
         artist = new Artist("a", "a");
-        List<Artist> artists = new ArrayList<>();
-
         concert = new Concert(artist, venue, LocalDate.now());
-        List<Concert> concerts = new ArrayList<>();
+        ticket = new Ticket(concert);
+        List<Ticket> soldTickets = new ArrayList<>();
 
+        soldTickets.add(ticket);
+
+        concert.setPriceInEuros(10);
+        concert.setSoldTickets(soldTickets);
+
+        List<Artist> artists = new ArrayList<>();
+        List<Concert> concerts = new ArrayList<>();
         List<Venue> venues = new ArrayList<>();
 
-        LocalDate today = LocalDate.now();
-
-        venues.add(venue);
         artists.add(artist);
         concerts.add(concert);
-
-        this.ticketService.getTourManager().getConcert(artist, venue, today).setPriceInEuros(10);
+        venues.add(venue);
 
         tourManager = new TourManager(artists, concerts, 1, "a", venues);
+
         ticketService = new TicketService(tourManager);
 
-
-        assertEquals(51, ticketService.getTotalRevenueInEuro("a"));
+        assertEquals(51, concert.getAmountOfTickets());
     }
+
+
 }

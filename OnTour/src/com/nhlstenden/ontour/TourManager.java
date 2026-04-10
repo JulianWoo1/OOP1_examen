@@ -103,11 +103,15 @@ public class TourManager
 
     public Concert getConcert(Artist artist, Venue venue, LocalDate date)
     {
-        if (!this.getConcertByArtist(this.concerts, artist).isEmpty()
-                && !this.getConcertByVenue(this.concerts, venue).isEmpty()
-                && !this.getConcertByDate(this.concerts, date).isEmpty())
+        Concert chosenConcert = new Concert(artist, venue, date);
+
+        if (this.getConcertByArtist(this.concerts, artist).equals(chosenConcert)
+                && this.getConcertByVenue(this.concerts, venue).equals(chosenConcert))
         {
-            return concerts.getFirst();
+            if (this.getConcertByDate(this.getConcerts(), date).equals(chosenConcert))
+            {
+                return concerts.get(0);
+            }
         }
 
         return null;
@@ -115,10 +119,15 @@ public class TourManager
 
     public Concert getConcert(String artistName, String venueName, LocalDate date)
     {
-        if (!this.getConcertByArtist(this.concerts, this.getArtistByName(artistName)).isEmpty()
-                && !this.getConcertByDate(this.concerts, date).isEmpty())
+        Concert chosenConcert = new Concert(this.getArtistByName(name), this.getVenueByName(name), date);
+
+        if (this.getConcertByArtist(this.concerts, this.getArtistByName(name)).equals(chosenConcert)
+                && this.getConcertByVenue(this.concerts, this.getVenueByName(name)).equals(chosenConcert))
         {
-            return concerts.getFirst();
+            if (this.getConcertByDate(this.getConcerts(), date).equals(chosenConcert))
+            {
+                return concerts.get(0);
+            }
         }
 
         return null;
