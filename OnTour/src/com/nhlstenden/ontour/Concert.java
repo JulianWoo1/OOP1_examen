@@ -2,6 +2,7 @@ package com.nhlstenden.ontour;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Concert
@@ -76,5 +77,44 @@ public class Concert
     public void setVenue(Venue venue)
     {
         this.venue = venue;
+    }
+
+    public boolean hasOccured()
+    {
+        return LocalDate.now().isAfter(this.getDate());
+    }
+
+    public void addTicket(Ticket ticket)
+    {
+        this.soldTickets.add(ticket);
+    }
+
+    public void removeTicket(Ticket ticket)
+    {
+        Iterator<Ticket> iterator = this.soldTickets.iterator();
+
+        while (iterator.hasNext())
+        {
+            Ticket ticket1 = iterator.next();
+            if (ticket1.equals(ticket1))
+            {
+                iterator.remove();
+            }
+        }
+    }
+
+    public int getAmountOfTickets()
+    {
+        return this.getSoldTickets().size();
+    }
+
+    public int getRevenueInEuro()
+    {
+        return this.getAmountOfTickets() * this.getPriceInEuros();
+    }
+
+    public boolean isSoldOut()
+    {
+        return this.getVenue().getMaxCapacity() >= this.getAmountOfTickets();
     }
 }
