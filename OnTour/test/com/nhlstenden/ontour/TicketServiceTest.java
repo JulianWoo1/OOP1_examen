@@ -42,30 +42,27 @@ class TicketServiceTest
     @Test
     void testGetTotalRevenue_OneTicketSold_ShouldReturn51()
     {
-        venue = new Venue("a", 1, "a");
-        artist = new Artist("a", "a");
-        concert = new Concert(artist, venue, LocalDate.now());
-        ticket = new Ticket(concert);
-        List<Ticket> soldTickets = new ArrayList<>();
-
-        soldTickets.add(ticket);
-
-        concert.setPriceInEuros(10);
-        concert.setSoldTickets(soldTickets);
-
-        List<Artist> artists = new ArrayList<>();
-        List<Concert> concerts = new ArrayList<>();
-        List<Venue> venues = new ArrayList<>();
-
-        artists.add(artist);
-        concerts.add(concert);
-        venues.add(venue);
-
-        tourManager = new TourManager(artists, concerts, 1, "a", venues);
-
-        ticketService = new TicketService(tourManager);
-
+        concert.setPriceInEuros(1);
+        this.ticketService.sellTickets(artist.getName(), venue.getName(), LocalDate.now(), 1);
         assertEquals(51, concert.getAmountOfTickets());
+    }
+
+    @Test
+    void testGetTotalRevenue_TwoTicketSold_ShouldReturn102()
+    {
+        concert.setPriceInEuros(1);
+        this.ticketService.sellTickets(artist.getName(), venue.getName(), LocalDate.now(), 2);
+        assertEquals(102, concert.getAmountOfTickets());
+    }
+
+    @Test
+    void testGetTotalRevenue_NoTicketSold_ShouldThrow()
+    {
+        concert.setPriceInEuros(1);
+        this.ticketService.sellTickets(artist.getName(), venue.getName(), LocalDate.now(), 0);
+        assertThrows(IllegalArgumentException.class, ()-> {
+            this.ticketService.getTotalRevenueInEuro(artist.getName());
+        });
     }
 
 
